@@ -1,4 +1,4 @@
-import ProfileHeader from "./ProfileHeader";
+import ProfileHeader from "../utils/ProfileHeader";
 import Message from "./Message";
 import { v4 as uuidv4 } from 'uuid';
 import { useState } from "react";
