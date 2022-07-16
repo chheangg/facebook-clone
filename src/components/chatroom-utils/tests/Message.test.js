@@ -2,7 +2,10 @@ import { screen, render } from '@testing-library/react';
 import Message from '../Message';
 import defaultImg from '../../assets/default-loading-image.png';
 
-const user = 'George';
+const user = {
+  name: 'George',
+  img: defaultImg,
+}
 
 const ownMessage =  {
   text: 'Message one',

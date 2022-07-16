@@ -1,11 +1,9 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable jsx-a11y/img-redundant-alt */
 const Message = ({user, message}) => {
-  const checkUser = () => message.by === user ? 'left' : 'right';
+  const checkUser = () => message.by === user.name ? 'left' : 'right';
 
   if (message.img) {
     return (
-      <img src={message.img} data-testid={checkUser()} className={checkUser()}></img>
+      <img src={message.img} data-testid={checkUser()} className={checkUser()} alt='Chat pic'></img>
     )
   }
 

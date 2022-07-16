@@ -3,7 +3,10 @@ import userEvent from '@testing-library/user-event';
 import Chatbox from '../Chatbox';
 import defaultImg from '../../assets/default-loading-image.png';
 
-const user = 'George';
+const user = {
+  name: 'George',
+  img: defaultImg,
+}
 const messages = [
   {
     text: 'Message one',
@@ -57,7 +60,7 @@ describe('Chatbox component', () => {
     const button = screen.getByRole('button');
     const input = screen.getByRole('textbox');
 
-    expect(screen.getByRole('heading', {name: user})).toBeInTheDocument()
+    expect(screen.getByRole('heading', {name: user.name})).toBeInTheDocument()
     expect(screen.queryAllByTestId('left').length).toBe(2);
     expect(screen.queryAllByTestId('right').length).toBe(2);
 
@@ -77,7 +80,7 @@ describe('Chatbox component', () => {
     const button = screen.getByRole('button');
     const input = screen.getByRole('textbox');
 
-    expect(screen.getByRole('heading', {name: user})).toBeInTheDocument()
+    expect(screen.getByRole('heading', {name: user.name})).toBeInTheDocument()
     expect(screen.queryAllByTestId('left').length).toBe(0);
     expect(screen.queryAllByTestId('right').length).toBe(0);
 
@@ -100,7 +103,7 @@ describe('Chatbox component', () => {
   it('# 0.4 Render image in a chatroom', () => {
     render(<Chatbox user={user} messages={messagesWithImg}/>)
 
-    expect(screen.getByRole('img')).toBeInTheDocument();
+    expect(screen.getByRole('img', {name: 'Chat pic'})).toBeInTheDocument();
   })
 
 })
