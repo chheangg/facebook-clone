@@ -5,7 +5,7 @@ const Message = ({user, message}) => {
   const checkUser = () => message.by === user.name ? 'left' : 'right';
 
   return (
-    <ProtoPost>
+    <ProtoPost testId='message'>
       {message.text ? <p data-testid={checkUser()} className={checkUser()}>{message.text}</p> : null }
       {message.img ? <Image testId={checkUser()} className={checkUser()} img={message.img} alt='chat pic' /> : null}
     </ProtoPost>

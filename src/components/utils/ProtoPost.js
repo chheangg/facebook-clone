@@ -1,6 +1,6 @@
-const ProtoPost = ({children}) => {
+const ProtoPost = ({children, testId}) => {
   return (
-    <div>
+    <div data-testid={testId}>
       {children}
     </div>
   )

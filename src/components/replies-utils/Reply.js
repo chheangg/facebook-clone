@@ -4,7 +4,7 @@ import Image from "../utils/Image";
 
 const Reply = ({replyContent}) => {
   return (
-    <ProtoPost>
+    <ProtoPost testId='reply'>
       <ProfileHeader user={replyContent.by} />
       {replyContent.content ? <div>{replyContent.content}</div> : null}
       {replyContent.img ? <Image img={replyContent.img} alt='reply pic' /> : null}

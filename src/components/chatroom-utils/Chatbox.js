@@ -2,7 +2,7 @@ import ProfileHeader from "../utils/ProfileHeader";
 import Message from "./Message";
 import { v4 as uuidv4 } from 'uuid';
 import { useState } from "react";
-import MessUtils from "./MessUtils";
+import PostUtils from "../utils/PostUtils";
 
 const Chatbox = ({user, messages}) => {
   const [chat, setChat] = useState(messages);
@@ -20,9 +20,9 @@ const Chatbox = ({user, messages}) => {
     <div>
       <ProfileHeader user={user} />
       <div>
-        {chat.map((message) => <Message key={uuidv4()} user={user} message={message} data-testid='message'/> )}
+        {chat.map((message) => <Message key={uuidv4()} user={user} message={message} /> )}
       </div>
-      <MessUtils handleSubmit={handleSubmit} />
+      <PostUtils handleSubmit={handleSubmit} isBtnless={false} buttonText='Send'/>
     </div>
   )
 }
