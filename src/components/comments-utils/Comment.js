@@ -1,6 +1,6 @@
-import ProfileHeader from "./ProfileHeader"
-import Image from "./Image"
-import ProtoPost from "./ProtoPost"
+import ProfileHeader from "../utils/ProfileHeader"
+import Image from "../utils/Image"
+import ProtoPost from "../utils/ProtoPost"
 
 const Comment = ({commentContent}) => {
   return (
