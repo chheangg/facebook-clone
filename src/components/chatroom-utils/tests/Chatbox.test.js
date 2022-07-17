@@ -103,7 +103,7 @@ describe('Chatbox component', () => {
   it('# 0.4 Render image in a chatroom', () => {
     render(<Chatbox user={user} messages={messagesWithImg}/>)
 
-    expect(screen.getByRole('img', {name: 'Chat pic'})).toBeInTheDocument();
+    expect(screen.getByRole('img', {name: 'chat pic'})).toBeInTheDocument();
   })
 
 })

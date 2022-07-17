@@ -1,18 +1,15 @@
 import ProfileHeader from "./ProfileHeader"
 import Image from "./Image";
+import ProtoPost from "./ProtoPost";
 
 const Post = ({postContent}) => {
   return (
-    <div>
+    <ProtoPost >
       <ProfileHeader user={postContent.by} />
-      <div>
-        {postContent.date}
-      </div>
-      <div>
-        {postContent.content}
-      </div>
-      {postContent.img ? <Image img={postContent.img} /> : null}
-    </div>
+      <div>{postContent.date}</div>
+      {postContent.content ? <div>{postContent.content}</div> : null}
+      {postContent.img ? <Image alt='post pic' img={postContent.img} /> : null}
+    </ProtoPost>
   )
 }
 

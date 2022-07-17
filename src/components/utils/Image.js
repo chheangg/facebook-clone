@@ -1,6 +1,6 @@
-const Image = ({img}) => {
+const Image = ({className, testId, img, alt}) => {
   return (
-    <img src={img} alt='post pic'></img>
+    <img className={className ? className : null} data-testid={testId ? testId: null} src={img} alt={alt}></img>
   )
 }
 

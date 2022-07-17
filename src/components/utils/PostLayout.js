@@ -1,7 +1,9 @@
-const PostLayout = ({Header, posts}) => {
+const PostLayout = ({children, posts}) => {
   return (
     <div>
-      <Header></Header>
+      {children}
     </div>
   )
 }
+
+export default PostLayout;

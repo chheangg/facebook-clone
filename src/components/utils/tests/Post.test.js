@@ -7,11 +7,10 @@ const userOne = {
   img: defaultImg,
 }
 
-const postSampleOne =   {
+const postSampleOne = {
   by: userOne,
   content: 'Post #1',
   date: '1657359724000',
-  type: 'text',
 };
 
 const postSampleTwo =   {
