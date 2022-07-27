@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const PostUtils = ({handleSubmit, buttonText, isBtnless}) => {
+const PostUtils = ({handleSubmit, buttonText, isBtnless, handleChildViewer}) => {
   const [text, setText] = useState('');
   const [showInput, setShowInput] = useState(false);
 
@@ -15,7 +15,12 @@ const PostUtils = ({handleSubmit, buttonText, isBtnless}) => {
     handleSubmit(text);
     setText('');
   }
-  const handleInputState = () => setShowInput(!showInput);
+  const handleInputState = () => {
+    setShowInput(!showInput);
+    if (handleChildViewer) {
+      handleChildViewer();
+    }
+  }
 
   if (isBtnless) {
     return (

@@ -2,6 +2,7 @@ import { screen, render } from "@testing-library/react";
 import Post from '../Post';
 import defaultImg from '../../assets/default-loading-image.png';
 import userEvent from "@testing-library/user-event";
+import { toBeInTheDocument } from "@testing-library/jest-dom/dist/matchers";
 
 const userOne = {
   name: 'George',
@@ -32,6 +33,7 @@ describe('Post Component', () => {
 
     expect(postContent).toBeInTheDocument();    
     expect(postDate).toBeInTheDocument();
+    expect(screen.getByRole('button', { name : 'comment' }));
   })
   it('# 0.2 Normal Render of a Post image', () => {
     const postSampleTwo =   {
@@ -58,55 +60,85 @@ describe('Post Component', () => {
     expect(screen.getByRole('img', {name: 'post pic'})).toBeInTheDocument();
     expect(screen.getByText('Post #3')).toBeInTheDocument();
   })
+
+  it('# 0.4 Render of Comment box and usage of Comment functionality', () => {
+    const postSampleFour = {
+      by: userOne,
+      content: 'Post #4',
+      img: defaultImg,
+      date: '1657359724000',
+      comments: [
+        {
+          by: userTwo,
+          content: 'Comment #1',
+          date: '1657359725000',
+        },
+        {
+          by: userOne,
+          img: defaultImg,
+          date: '1657359726000',
+        },
+      ]
+    }
+
+    render(<Post postContent={postSampleFour} />);
+    
+    const btn = screen.getByRole('button', { name: 'comment' });
+
+    expect(screen.getByText(/Post #4/)).toBeInTheDocument();
+    expect(screen.queryAllByTestId('comment').length).toBe(1);
+    expect(screen.queryAllByTestId('comment')[0].textContent).toMatch(/Comment #1/);
+    expect(screen.queryAllByRole('input').length).toBe(0);
+
+    // Click 'comment' utils button
+    userEvent.click(btn);
+    const commentInput = screen.getByRole('textbox');
+
+    expect(screen.queryAllByTestId('comment').length).toBe(2);
+    expect(commentInput).toBeInTheDocument();
+
+    // Comment on a post
+    userEvent.type(commentInput, 'Comment #3{enter}');
+    expect(commentInput.value).toMatch('');
+    expect(screen.queryAllByTestId('comment').length).toBe(3);
+    expect(screen.queryAllByTestId('comment')[2].textContent).toMatch(/Comment #3/);
+  })
+
+  it('# 0.5 Render of a Post with comments in it', () => {
+    const postSampleFive = {
+      by: userOne,
+      content: 'Post #5',
+      img: defaultImg,
+      date: '1657359724000',
+      comments: [
+        {
+          by: userTwo,
+          content: 'Comment #1',
+          date: '1657359725000',
+        },
+        {
+          by: userOne,
+          img: defaultImg,
+          date: '1657359726000',
+        },
+      ]
+    }
+
+    render(<Post postContent={postSampleFive} />);
+
+    expect(screen.getByText(/Post #5/)),toBeInTheDocument;
+    expect(screen.getByRole('img', { name: 'post pic'})).toBeInTheDocument;
+
+    const btn = screen.getByRole('button', { name: 'comment' });
+
+    expect(screen.queryAllByTestId('comment')[0].textContent).toMatch(/Comment #1/)
+    expect(screen.queryAllByTestId('comment')[1]).toBeUndefined();
+
+    userEvent.click(btn);
+
+    expect(screen.queryAllByTestId('comment').length).toBe(2);
+    expect(screen.queryAllByTestId('comment')[0]).toBeInTheDocument();
+    expect(screen.queryAllByTestId('comment')[1]).toBeInTheDocument();
+
+  })
 })
-
-  // it('# 0.4 Render of comments and replies', () => {
-  //   const postSampleFour =   {
-  //     by: userOne,
-  //     content: 'Post #4',
-  //     img: defaultImg, 
-  //     date: '1657359724000',
-  //     comments: [
-  //       {
-  //         by: userTwo,
-  //         content: 'Comment #1',
-  //         date: '1657359725000',
-  //         replies: [
-  //           {
-  //             by: userOne,
-  //             content: 'Reply #1',
-  //             date: '1657359726000',
-  //           },
-  //           {
-  //             by: userTwo,
-  //             content: 'Reply #2',
-  //             date: '1657359726000',
-  //           },
-  //         ]
-  //       },
-  //       {
-  //         by: userTwo,
-  //         content: 'Comment #2',
-  //         date: '1657359726000',
-  //         replies: [],
-  //       }
-  //     ]
-  //   };
-
-  //   render(<Post postContent={postSampleFour} />)
-
-  //   const button = screen.getByRole('button', { name: 'Comments' });
-
-  //   expect(screen.getByText('Comment #1')).toBeInTheDocument();
-  //   expect(screen.queryByText('Comment #2').length).toBe(0);
-
-  //   userEvent.click(button)
-
-  //   expect(screen.queryAllByTestId('comment').length).toBe(2);
-  //   expect(screen.queryAllByTestId('reply').length).toBe(2);
-
-  //   expect(screen.queryAllByTestId('comment')[0].textContent).toMatch(/Comment #1/)
-  //   expect(screen.queryAllByTestId('comment')[1].textContent).toMatch(/Comment #2/)
-  //   expect(screen.queryAllByTestId('reply')[0].textContent).toMatch(/Reply #1/)
-  //   expect(screen.queryAllByTestId('reply')[1].textContent).toMatch(/Reply #2/)
-  // })

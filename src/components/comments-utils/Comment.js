@@ -29,7 +29,7 @@ const Comment = ({commentContent}) => {
   }
 
   return (
-    <ProtoPost>
+    <ProtoPost testId='comment'>
       <ProfileHeader user={commentContent.by} />
       {commentContent.content ? <div>{commentContent.content}</div> : null}
       {commentContent.img ? <Image img={commentContent.img} alt='comment pic' /> : null}
