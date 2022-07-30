@@ -32,10 +32,17 @@ function templatePost(type, Header, Discussions, childType, Expander) {
         setShowPostChild(true);
       }
     }
+
+    const getDate = () => {
+      const date = new Date(parseInt(discussion.date));
+      const time = date.toLocaleString();
+      return time;
+    }
+
     return (
       <div className={`${type}-container`} data-testid={type}>
         <Header user={discussion.by} />
-        {discussion.date ? <div>{discussion.date}</div> : null}
+        {discussion.date ? <div>{getDate()}</div> : null}
         {discussion.content ? <div>{discussion.content} </div> : null}
         {discussion.img ? <Image src={discussion.img} alt={`${type} pic`} /> : null}
         <PostUtils handleSubmit={handleSubmit} handleChildViewer={changeViewHandler} buttonText={getBtnText()} isBtnless={true} />

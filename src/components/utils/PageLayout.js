@@ -1,10 +1,12 @@
-const PageLayout = (Header, Children) => {
-  return () => {
+const PageLayout = (Header, Discussions) => {
+  return ({discussions}) => {
     return (
       <div>
-        <Header></Header>
-        <Children />
+        <Header />
+        <Discussions discussions={discussions}/>
       </div>
     )
   }
 }
+
+export default PageLayout;

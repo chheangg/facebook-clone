@@ -58,4 +58,10 @@ describe('Posts Component', () => {
     expect(screen.getByText(postProp[0].content)).toBeInTheDocument();
     expect(screen.getByText(postProp[1].content)).toBeInTheDocument();  
   })
+
+  it('# 0.3 No Posts', () => {
+    render(<Posts posts={[]} />)
+
+    expect(screen.getByText("It's Empty!")).toBeInTheDocument();
+  })
 })
