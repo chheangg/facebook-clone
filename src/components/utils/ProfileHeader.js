@@ -4,7 +4,7 @@ import ProfilePicture from './ProfilePicture';
 const ProfileHeader = ({user}) => {
   return (
     <div>
-      <h1>{user.name}</h1>
+      <div data-testid='username'>{user.name}</div>
       <ProfilePicture src={user.img ? user.img : defaultImg} />
     </div>
   )

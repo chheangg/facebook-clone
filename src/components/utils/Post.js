@@ -22,7 +22,7 @@ const Post = ({postContent}) => {
     
     const commentObj = {
       content: text,
-      by: 'Chheang',
+      by: user,
       time: new Date().getTime(),
     };
 

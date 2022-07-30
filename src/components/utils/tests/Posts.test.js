@@ -47,4 +47,15 @@ describe('Posts Component', () => {
     expect(postContent).toBeInTheDocument();    
     expect(postDate).toBeInTheDocument();
   })
+
+  it('# 0.2 Multiple Render of posts', () => {
+    render(<Posts posts={postProp} />)
+
+    expect(screen.queryAllByRole('img', {name: 'profile pic'}).length).toBe(2);
+    expect(screen.queryAllByTestId('username')[0].textContent).toMatch(userOne.name);
+    expect(screen.queryAllByTestId('username')[1].textContent).toMatch(userTwo.name);
+
+    expect(screen.getByText(postProp[0].content)).toBeInTheDocument();
+    expect(screen.getByText(postProp[1].content)).toBeInTheDocument();  
+  })
 })

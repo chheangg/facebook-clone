@@ -60,7 +60,7 @@ describe('Chatbox component', () => {
     const button = screen.getByRole('button');
     const input = screen.getByRole('textbox');
 
-    expect(screen.getByRole('heading', {name: user.name})).toBeInTheDocument()
+    expect(screen.getByTestId('username')).toBeInTheDocument()
     expect(screen.queryAllByTestId('left').length).toBe(2);
     expect(screen.queryAllByTestId('right').length).toBe(2);
 
@@ -79,8 +79,8 @@ describe('Chatbox component', () => {
 
     const button = screen.getByRole('button');
     const input = screen.getByRole('textbox');
-
-    expect(screen.getByRole('heading', {name: user.name})).toBeInTheDocument()
+    
+    expect(screen.getByTestId('username')).toBeInTheDocument()
     expect(screen.queryAllByTestId('left').length).toBe(0);
     expect(screen.queryAllByTestId('right').length).toBe(0);
 

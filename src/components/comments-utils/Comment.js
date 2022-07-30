@@ -9,22 +9,25 @@ const Comment = ({commentContent}) => {
   const [showReply, setShowReply] = useState(false);
   const [replies, setReplies] = useState(commentContent.replies ? commentContent.replies : []);
 
+  const changeViewHandler = () => {
+    if (replies[1]) {
+      setShowReply(!showReply);
+    }
+  };
   const handleSubmit = (text) => {
+    const user = {
+      name: 'Chheang',
+    }
+    
     const replyObj = {
       content: text,
-      by: 'Chheang',
+      by: user,
       time: new Date().getTime(),
     };
 
     setReplies(replies.concat(replyObj));
     if (replies[1]) {
       setShowReply(true);
-    }
-  };
-
-  const changeViewHandler = () => {
-    if (replies[1]) {
-      setShowReply(!showReply);
     }
   }
 

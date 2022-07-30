@@ -15,7 +15,7 @@ describe('ProfileHeader component', () => {
   it('# 0.1 Normal render of ProfileHeader', () => {
     render(<ProfileHeader user={userInfoOne} />);
     
-    expect(screen.getByRole('heading', {name: userInfoOne.name})).toBeInTheDocument();
+    expect(screen.getByTestId('username')).toBeInTheDocument();
     expect(screen.getByRole('img')).toBeInTheDocument();
   })
 
