@@ -9,22 +9,22 @@ const user = {
 }
 const messages = [
   {
-    text: 'Message one',
+    content: 'Message one',
     by: 'Chheang',
     time: '1657359724000',
   },
   {
-    text: 'Message two',
+    content: 'Message two',
     by: 'George',
     time: '1657359725000',
   },
   {
-    text: 'Message three',
+    content: 'Message three',
     by: 'George',
     time: '1657359726000',
   },
   {
-    text: 'Message four',
+    content: 'Message four',
     by: 'Chheang',
     time: '1657359727000',
   },
@@ -32,17 +32,17 @@ const messages = [
 
 const messagesWithImg = [
   {
-    text: 'Message one',
+    content: 'Message one',
     by: 'Chheang',
     time: '1657359724000',
   },
   {
-    text: 'Message two',
+    content: 'Message two',
     by: 'George',
     time: '1657359725000',
   },
   {
-    text: 'Message three',
+    content: 'Message three',
     by: 'George',
     time: '1657359726000',
   },
@@ -55,7 +55,7 @@ const messagesWithImg = [
 
 describe('Chatbox component', () => {
   it('# 0.1 Normal Render of Chatbox', () => {
-    render(<Chatbox user={user} messages={messages}/>)
+    render(<Chatbox user={user} discussions={messages}/>)
 
     const button = screen.getByRole('button');
     const input = screen.getByRole('textbox');
@@ -75,7 +75,7 @@ describe('Chatbox component', () => {
   })
 
   it('# 0.2 Normal Render of Chatbox with empty array', () => {
-    render(<Chatbox user={user} messages={[]}/>)
+    render(<Chatbox user={user} discussions={[]}/>)
 
     const button = screen.getByRole('button');
     const input = screen.getByRole('textbox');
@@ -89,7 +89,7 @@ describe('Chatbox component', () => {
   })
 
   it('# 0.3 Send a text', () => {
-    render(<Chatbox user={user} messages={messages}/>)
+    render(<Chatbox user={user} discussions={messages}/>)
 
     const button = screen.getByRole('button');
     const input = screen.getByRole('textbox');
@@ -101,9 +101,9 @@ describe('Chatbox component', () => {
   })  
   
   it('# 0.4 Render image in a chatroom', () => {
-    render(<Chatbox user={user} messages={messagesWithImg}/>)
+    render(<Chatbox user={user} discussions={messagesWithImg}/>)
 
-    expect(screen.getByRole('img', {name: 'chat pic'})).toBeInTheDocument();
+    expect(screen.getByRole('img', {name: 'message pic'})).toBeInTheDocument();
   })
 
 })

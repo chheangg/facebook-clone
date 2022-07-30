@@ -15,7 +15,7 @@ describe('Reply Component', () => {
       date: '1657359724000',
     }
 
-    render(<Reply replyContent={samplePropOne}/>);
+    render(<Reply discussion={samplePropOne}/>);
 
     expect(screen.getByRole('img', { name: 'profile pic' })).toBeInTheDocument();
     expect(screen.getByText(userOne.name)).toBeInTheDocument();
@@ -28,7 +28,7 @@ describe('Reply Component', () => {
       date: '1657359724000',
     };
 
-    render(<Reply replyContent={samplePropTwo} />);
+    render(<Reply discussion={samplePropTwo} />);
 
     expect(screen.getByRole('img', { name: 'reply pic'})).toBeInTheDocument();
   })
@@ -41,7 +41,7 @@ describe('Reply Component', () => {
       date: '1657359724000',
     };
 
-    render(<Reply replyContent={samplePropThree} />)
+    render(<Reply discussion={samplePropThree} />)
 
     expect(screen.getByText(samplePropThree.content)).toBeInTheDocument();
     expect(screen.getByRole('img', { name: 'reply pic'})).toBeInTheDocument();

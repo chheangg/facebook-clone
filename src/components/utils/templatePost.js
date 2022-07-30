@@ -5,7 +5,7 @@ import PostUtils from './PostUtils'
 function templatePost(type, Header, Discussions, childType, Expander) {
   return ({discussion}) => {
     const getBtnText = () => childType === 'comments' ? 'comment' : 'reply';
-    const getPostChild = () => discussion ? discussion[childType] ? discussion[childType] : [] : [];
+    const getPostChild = () => discussion[childType] ? discussion[childType] : [];
 
     const [showPostChild, setShowPostChild] = useState(false);
     const [postChild, setPostChild] = useState(getPostChild());

@@ -8,7 +8,7 @@ const Replies = ({discussions}) => {
   }
   return (
     <div>
-      {discussions.map((reply) => <Reply key={uuidv4()} replyContent={reply} />)}
+      {discussions.map((reply) => <Reply key={uuidv4()} discussion={reply} />)}
     </div>
   )
 }

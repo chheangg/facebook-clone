@@ -1,15 +1,7 @@
-import ProtoPost from "../utils/ProtoPost";
-import Image from "../utils/Image";
 
-const Message = ({user, message}) => {
-  const checkUser = () => message.by === user.name ? 'left' : 'right';
+import templateUnit from '../utils/templateUnit';
+import ChatProfile from './ChatProfile';
 
-  return (
-    <ProtoPost testId='message'>
-      {message.text ? <p data-testid={checkUser()} className={checkUser()}>{message.text}</p> : null }
-      {message.img ? <Image testId={checkUser()} className={checkUser()} img={message.img} alt='chat pic' /> : null}
-    </ProtoPost>
-  )
-}
+const Message = templateUnit(ChatProfile, 'message')
 
 export default Message;

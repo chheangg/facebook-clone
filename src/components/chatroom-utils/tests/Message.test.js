@@ -8,7 +8,7 @@ const user = {
 }
 
 const ownMessage =  {
-  text: 'Message one',
+  content: 'Message one',
   by: 'Chheang',
   time: '1657359724000',
 };
@@ -20,7 +20,7 @@ const ownImg =  {
 };
 
 const theirMessage =   {
-  text: 'Message two',
+  content: 'Message two',
   by: 'George',
   time: '1657359725000',
 }
@@ -34,27 +34,27 @@ const theirImg =  {
 
 describe('Message component', () => {
   it('# 0.1 Normal render of a message of your own', () => {
-    render(<Message message={ownMessage} user={user} />);
+    render(<Message discussion={ownMessage} user={user} />);
 
     expect(screen.getByText(/Message one/)).toBeInTheDocument();
     expect(screen.getByTestId('right')).toBeInTheDocument();
   })
   it('# 0.2 Normal render of a message of the other person', () => {
-    render(<Message message={theirMessage} user={user} />);
+    render(<Message discussion={theirMessage} user={user} />);
 
     expect(screen.getByText(/Message two/)).toBeInTheDocument();
     expect(screen.getByTestId('left')).toBeInTheDocument();
   })
   it('# 0.3 Render Image from yourself', () => {
-    render(<Message message={ownImg} user={user} />);
+    render(<Message discussion={ownImg} user={user} />);
 
-    expect(screen.getByRole('img')).toBeInTheDocument();
+    expect(screen.getByRole('img', {name: 'message pic'})).toBeInTheDocument();
     expect(screen.getByTestId('right')).toBeInTheDocument();
   })
   it('# 0.4 Render Image of the other person', () => {
-    render(<Message message={theirImg} user={user} />);
+    render(<Message discussion={theirImg} user={user} />);
 
-    expect(screen.getByRole('img')).toBeInTheDocument();
+    expect(screen.getByRole('img', {name: 'message pic'})).toBeInTheDocument();
     expect(screen.getByTestId('left')).toBeInTheDocument();
   })
 })
