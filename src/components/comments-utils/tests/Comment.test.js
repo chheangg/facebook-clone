@@ -22,7 +22,7 @@ describe('Comment Component', () => {
       replies: [],
     };
 
-    render(<Comment commentContent={commentOne} />)
+    render(<Comment discussion={commentOne} />)
 
     expect(screen.getByRole('img', { name: 'profile pic'})).toBeInTheDocument();
     expect(screen.getByText('Chheang')).toBeInTheDocument();
@@ -40,7 +40,7 @@ describe('Comment Component', () => {
       replies: [],
     };
 
-    render(<Comment commentContent={commentTwo} />)
+    render(<Comment discussion={commentTwo} />)
 
     expect(screen.getByRole('img', {name: 'comment pic'})).toBeInTheDocument();
   })
@@ -54,7 +54,7 @@ describe('Comment Component', () => {
       replies: [],
     };
 
-    render(<Comment commentContent={commentThree} />)
+    render(<Comment discussion={commentThree} />)
     
     expect(screen.getByRole('img', {name: 'comment pic'})).toBeInTheDocument();
     expect(screen.getByText(commentThree.content)).toBeInTheDocument();
@@ -69,7 +69,7 @@ describe('Comment Component', () => {
       replies: []
     };
 
-    render(<Comment commentContent={commentFour} />);
+    render(<Comment discussion={commentFour} />);
 
     const replyButton = screen.getByRole('button', { name: 'reply' });
 
@@ -106,7 +106,7 @@ describe('Comment Component', () => {
       ],
     }
 
-    render(<Comment commentContent={commentFive} />);
+    render(<Comment discussion={commentFive} />);
 
     const viewReplyBtn = screen.getByRole('button', { name: 'view replies'});
 

@@ -22,7 +22,7 @@ describe('Post Component', () => {
       date: '1657359724000',
     };
 
-    render(<Post postContent={postSampleOne} />)
+    render(<Post discussion={postSampleOne} />)
 
     expect(screen.getByRole('img', {name: 'profile pic'})).toBeInTheDocument();
     expect(screen.getByText(userOne.name)).toBeInTheDocument();
@@ -33,7 +33,7 @@ describe('Post Component', () => {
 
     expect(postContent).toBeInTheDocument();    
     expect(postDate).toBeInTheDocument();
-    expect(screen.getByRole('button', { name : 'comment' }));
+    expect(screen.getByRole('button', { name : 'comment' })).toBeInTheDocument();
   })
   it('# 0.2 Normal Render of a Post image', () => {
     const postSampleTwo =   {
@@ -43,7 +43,7 @@ describe('Post Component', () => {
       date: '1657359724000',
     };
 
-    render(<Post postContent={postSampleTwo} />)
+    render(<Post discussion={postSampleTwo} />)
 
     expect(screen.getByRole('img', {name: 'post pic'})).toBeInTheDocument();
   })
@@ -55,7 +55,7 @@ describe('Post Component', () => {
       img: defaultImg, 
       date: '1657359724000',
     }
-    render(<Post postContent={postSampleThree} />)
+    render(<Post discussion={postSampleThree} />)
 
     expect(screen.getByRole('img', {name: 'post pic'})).toBeInTheDocument();
     expect(screen.getByText('Post #3')).toBeInTheDocument();
@@ -81,7 +81,7 @@ describe('Post Component', () => {
       ]
     }
 
-    render(<Post postContent={postSampleFour} />);
+    render(<Post discussion={postSampleFour} />);
     
     const btn = screen.getByRole('button', { name: 'comment' });
 
@@ -118,16 +118,16 @@ describe('Post Component', () => {
         },
         {
           by: userOne,
-          img: defaultImg,
+          content: 'Comment #2',
           date: '1657359726000',
         },
       ]
     }
 
-    render(<Post postContent={postSampleFive} />);
+    render(<Post discussion={postSampleFive} />);
 
-    expect(screen.getByText(/Post #5/)),toBeInTheDocument;
-    expect(screen.getByRole('img', { name: 'post pic'})).toBeInTheDocument;
+    expect(screen.getByText(/Post #5/)).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'post pic'})).toBeInTheDocument();
 
     const btn = screen.getByRole('button', { name: 'comment' });
 
@@ -137,8 +137,8 @@ describe('Post Component', () => {
     userEvent.click(btn);
 
     expect(screen.queryAllByTestId('comment').length).toBe(2);
-    expect(screen.queryAllByTestId('comment')[0]).toBeInTheDocument();
-    expect(screen.queryAllByTestId('comment')[1]).toBeInTheDocument();
+    expect(screen.queryAllByTestId('comment')[0].textContent).toMatch(/Comment #1/);
+    expect(screen.queryAllByTestId('comment')[1].textContent).toMatch(/Comment #2/);
 
   })
 })
