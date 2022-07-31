@@ -1,11 +1,13 @@
-import defaultImg from '../assets/default-loading-image.png';
-import ProfilePicture from './ProfilePicture';
 
-const ProfileHeader = ({user}) => {
+import ProfilePicture from './ProfilePicture';
+import { Link } from 'react-router-dom';
+
+const ProfileHeader = ({user, date}) => {
   return (
-    <div>
-      <ProfilePicture img={user.img ? user.img : defaultImg} />
-      <div data-testid='username'>{user.name}</div>
+    <div className='profile-header-container'>
+      <ProfilePicture user={user} />
+      <Link to={`/profile/${user.name}`} data-testid='username'>{user.name}</Link>
+      {date ? <div>{date}</div> : null}
     </div>
   )
 }

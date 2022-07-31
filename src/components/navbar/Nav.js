@@ -21,7 +21,7 @@ const Nav = ({children}) => {
           <SearchBar />
         </div>
         <div className='mid-nav-container nav-child'>
-          <NavButton img={homeIcon} />
+          <NavButton img={homeIcon} path='/' />
           <NavButton img={friendIcon} />
           <NavButton img={watchIcon} />
           <NavButton img={groupIcon} />

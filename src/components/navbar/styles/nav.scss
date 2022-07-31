@@ -1,6 +1,7 @@
 .nav-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  background-color: #ffffff;
 }
 
 .left-nav-container {
@@ -11,8 +12,11 @@
 .mid-nav-container {
   display: flex;
   justify-content: center;
+  align-items: center;
+
   > * {
     flex: 1 1 100%;
+    text-align: center;
   }
 }
 

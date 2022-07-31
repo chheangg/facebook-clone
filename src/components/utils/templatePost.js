@@ -11,7 +11,7 @@ function templatePost(type, Header, Discussions, childType, Expander) {
     const [postChild, setPostChild] = useState(getPostChild());
 
     const changeViewHandler = () => {
-      if (postChild[1]) {
+      if (postChild[0]) {
         setShowPostChild(!showPostChild);
       }
     }
@@ -24,13 +24,11 @@ function templatePost(type, Header, Discussions, childType, Expander) {
       const newObj = {
         content: text,
         by: user,
-        time: new Date().getTime(),
+        date: new Date().getTime(),
       };
 
-      setPostChild(postChild.concat(newObj));
-      if (postChild[1]) {
-        setShowPostChild(true);
-      }
+      setPostChild([...postChild, newObj]);
+      setShowPostChild(true);
     }
 
     const getDate = () => {
@@ -41,15 +39,12 @@ function templatePost(type, Header, Discussions, childType, Expander) {
 
     return (
       <div className={`${type}-container`} data-testid={type}>
-        <Header user={discussion.by} />
-        {discussion.date ? <div>{getDate()}</div> : null}
+        <Header user={discussion.by} date={discussion.date ? getDate() : null} />
         {discussion.content ? <div>{discussion.content} </div> : null}
         {discussion.img ? <Image src={discussion.img} alt={`${type} pic`} /> : null}
         <PostUtils handleSubmit={handleSubmit} handleChildViewer={changeViewHandler} buttonText={getBtnText()} isBtnless={true} />
-        {Expander ? <button onClick={changeViewHandler}>{`view ${childType}`}</button> : null}
-        {showPostChild ? <Discussions discussions={postChild} /> : 
-        postChild[0] ? <Discussions discussions={[postChild[0]]} /> :
-        null}
+        {Expander ? postChild.length > 0 ? <button onClick={changeViewHandler}>{`view ${postChild.length} ${childType}`}</button> : null : null}
+        {showPostChild ? <Discussions discussions={postChild} /> : null}
       </div>
     )
   }
