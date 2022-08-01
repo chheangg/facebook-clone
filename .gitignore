@@ -7,7 +7,6 @@
 
 # testing
 /coverage
-/src/components/homepage-utils/ExampleProp.js
 
 # production
 /build

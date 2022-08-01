@@ -1,7 +1,6 @@
 
 import templateUnit from '../utils/templateUnit';
-import ChatProfile from './ChatProfile';
 
-const Message = templateUnit(ChatProfile, 'message')
+const Message = templateUnit(null, 'message')
 
 export default Message;
