@@ -1,5 +1,4 @@
 import HomeContent from "./HomeContent";
-import postProp from "./ExampleProp";
 
 const HomePage = () => {
   const homeStyle = {
@@ -9,7 +8,7 @@ const HomePage = () => {
   return (
     <main style={homeStyle} className='home-page-container'>
       <div></div>
-      <HomeContent discussions={postProp} />
+      <HomeContent discussions={[]} />
       <div></div>
     </main>
   )

@@ -13,7 +13,7 @@ import groupIcon from '../assets/account-group.svg';
 import gameIcon from '../assets/facebook-gaming.svg';
 import SearchBar from './SearchBar';
 
-const Nav = ({children}) => {
+const Nav = ({changeMessageView}) => {
   return (
     <nav className='nav-container'>
         <div className='left-nav-container nav-child'>
@@ -29,7 +29,7 @@ const Nav = ({children}) => {
         </div>
         <div className='right-nav-container nav-child'>
           <CircularButton size='mid' img={dotGrid} />  
-          <CircularButton size='mid' img={messLogo} /> 
+          <CircularButton size='mid' img={messLogo} util={changeMessageView} /> 
           <CircularButton size='mid' img={bellIcon} />   
         </div>
     </nav>

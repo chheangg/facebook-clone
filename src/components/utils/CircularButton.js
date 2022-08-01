@@ -1,4 +1,4 @@
-const CircularButton = ({img, size}) => {
+const CircularButton = ({img, size, util}) => {
   const btnStyle = {
     borderRadius: '50%',
     height: size === 'big' ? '2.5rem' : '2rem',
@@ -6,7 +6,7 @@ const CircularButton = ({img, size}) => {
   }
 
   return (
-    <button className='circular-btn btn'>
+    <button className='circular-btn btn' onClick={util ? util : null}>
       <img style={btnStyle} src={img} alt='circular button'/>
     </button>
   )
