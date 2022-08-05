@@ -12,8 +12,9 @@ import watchIcon from '../assets/television.svg';
 import groupIcon from '../assets/account-group.svg';
 import gameIcon from '../assets/facebook-gaming.svg';
 import SearchBar from './SearchBar';
+import defaultProfileIcon from '../assets/default-profile-icon-24.jpg';
 
-const Nav = ({changeMessageView}) => {
+const Nav = ({changeMessageView, handleProfileSetting, user}) => {
   return (
     <nav className='nav-container'>
         <div className='left-nav-container nav-child'>
@@ -30,7 +31,8 @@ const Nav = ({changeMessageView}) => {
         <div className='right-nav-container nav-child'>
           <CircularButton size='mid' img={dotGrid} />  
           <CircularButton size='mid' img={messLogo} util={changeMessageView} /> 
-          <CircularButton size='mid' img={bellIcon} />   
+          <CircularButton size='mid' img={bellIcon} />  
+          <CircularButton size='mid' img={user ? user.img : defaultProfileIcon} util={handleProfileSetting} /> 
         </div>
     </nav>
   )
