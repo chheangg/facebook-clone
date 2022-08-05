@@ -2,7 +2,7 @@ const CircularButton = ({img, size, util}) => {
   const btnStyle = {
     borderRadius: '50%',
     height: size === 'big' ? '2.5rem' : '2rem',
-    width: 'auto',
+    width: size === 'big' ? '2.5rem' : '2rem',
   }
 
   return (

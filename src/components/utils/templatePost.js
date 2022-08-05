@@ -3,17 +3,20 @@ import Image from "../utils/Image"
 import PostUtils from './PostUtils'
 
 function templatePost(type, Header, Discussions, childType, Expander) {
-  return ({discussion}) => {
+  return ({discussion, updateDiscussion, index, setShowPostChild, showPostChild}) => {
     const getBtnText = () => childType === 'comments' ? 'comment' : 'reply';
     const getPostChild = () => discussion[childType] ? discussion[childType] : [];
 
-    const [showPostChild, setShowPostChild] = useState(false);
     const [postChild, setPostChild] = useState(getPostChild());
 
     const changeViewHandler = () => {
       if (postChild[0]) {
         setShowPostChild(!showPostChild);
       }
+    }
+
+    const updateState = (newState) => {
+      setPostChild(newState);
     }
 
     const handleSubmit = (text) => {
@@ -27,7 +30,9 @@ function templatePost(type, Header, Discussions, childType, Expander) {
         date: new Date().getTime(),
       };
 
-      setPostChild([...postChild, newObj]);
+      const newChildren = [...postChild, newObj]
+      setPostChild(newChildren);
+      updateDiscussion(childType, newChildren, index);
       setShowPostChild(true);
     }
 
@@ -42,9 +47,9 @@ function templatePost(type, Header, Discussions, childType, Expander) {
         <Header user={discussion.by} date={discussion.date ? getDate() : null} />
         {discussion.content ? <div>{discussion.content} </div> : null}
         {discussion.img ? <Image src={discussion.img} alt={`${type} pic`} /> : null}
-        <PostUtils handleSubmit={handleSubmit} handleChildViewer={changeViewHandler} buttonText={getBtnText()} isBtnless={true} />
+        <PostUtils isOn={postChild[0] ? true : false} handleSubmit={handleSubmit} handleChildViewer={changeViewHandler} buttonText={getBtnText()} isBtnless={true} />
         {Expander ? postChild.length > 0 ? <button onClick={changeViewHandler}>{`view ${postChild.length} ${childType}`}</button> : null : null}
-        {showPostChild ? <Discussions discussions={postChild} /> : null}
+        {showPostChild ? <Discussions discussions={postChild} updateDiscussions={updateState} /> : null}
       </div>
     )
   }

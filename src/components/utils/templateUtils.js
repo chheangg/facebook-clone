@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
 function templateUtils (type) {
-  return ({handleSubmit, handleChildViewer, buttonText, placeholderText}) => {
+  return ({handleSubmit, handleChildViewer, buttonText, placeholderText, isOn}) => {
     const [text, setText] = useState('');
-    const [showInput, setShowInput] = useState(false);
+    const [showInput, setShowInput] = useState(isOn ? true : false);
 
     const handleChange = (event) => setText(event.target.value);
     const submitKeyPress = (event) => {

@@ -15,12 +15,15 @@ const pageLayout = (Header, Discussions) => {
       };
 
       setPosts([...post, newObj]);
-      console.log(post)
     };
+
+    const updateState = (newPost) => {
+      setPosts(newPost)
+    }
     return (
       <div>
         <Header handleSubmit={handleSubmit}/>
-        <Discussions discussions={post}/>
+        <Discussions discussions={post} updateDiscussions={updateState} />
       </div>
     )
   }
