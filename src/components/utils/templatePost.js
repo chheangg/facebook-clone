@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Image from "../utils/Image"
 import PostUtils from './PostUtils'
+import { UserContext } from './contexts/UserContext';
 
 function templatePost(type, Header, Discussions, childType, Expander) {
   return ({discussion, updateDiscussion, index, setShowPostChild, showPostChild}) => {
     const getBtnText = () => childType === 'comments' ? 'comment' : 'reply';
     const getPostChild = () => discussion[childType] ? discussion[childType] : [];
+    const user = useContext(UserContext);
 
     const [postChild, setPostChild] = useState(getPostChild());
 
@@ -20,10 +22,6 @@ function templatePost(type, Header, Discussions, childType, Expander) {
     }
 
     const handleSubmit = (text) => {
-      const user = {
-        name: 'Chheang',
-      }
-      
       const newObj = {
         content: text,
         by: user,

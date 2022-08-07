@@ -4,7 +4,6 @@ import './styles/Layout.scss';
 import { useEffect, useState } from "react";
 import ChatRoom from "./chatroom-utils/ChatRoom";
 import ChatOverlay from "./chatroom-utils/ChatOverlay";
-import { chatProp, userOne } from './chatroom-utils/ExampleProp';
 import Chatbox from "./chatroom-utils/Chatbox";
 import Authenticate from "./loginpage-utils/Authenticate";
 import Account from "./loginpage-utils/Account";
@@ -12,6 +11,7 @@ import { createAccount, signIn, signOutOfApp, onAuthStateChanged, getAccount, ge
 import DropDown from "./navbar/DropDown";
 import ProfileHeader from "./utils/ProfileHeader";
 import Button from "./utils/Button";
+import { UserContext } from './utils/contexts/UserContext'
 
 
 const Layout = () => {
@@ -22,7 +22,7 @@ const Layout = () => {
   const [user, setUser] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [currentMsgs, setCurrentMsgs] = useState([]);
-  const [chatData, setChatData] = useState(chatProp);
+  const [chatData, setChatData] = useState([]);
 
   const handleRegisterPop = () => {
     setIsRegister(!isRegister)
@@ -105,7 +105,9 @@ const Layout = () => {
   return (
     <div>
       <Nav changeMessageView={changeMessageView} handleProfileSetting={handleProfileSetting} user={currentUser}/>
-      <Outlet />
+      <UserContext.Provider value={currentUser}>
+        <Outlet />
+      </UserContext.Provider>
       {showMessage ? <ChatRoom chatData={chatData} user={currentUser} utils={{addToCurrentMsgs}} /> : null}
       {currentMsgs.length > 0 ?
       <ChatOverlay>

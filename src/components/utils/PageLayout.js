@@ -1,13 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from "./contexts/UserContext";
 
 const pageLayout = (Header, Discussions) => {
   return ({discussions}) => {
     const [post, setPosts] = useState(discussions ? discussions : []);
+    const user = useContext(UserContext);
+
     const handleSubmit = (text) => {
-      const user = {
-        name: 'Chheang',
-      }
-      
       const newObj = {
         content: text,
         by: user,
