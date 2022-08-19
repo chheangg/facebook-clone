@@ -12,6 +12,7 @@ import DropDown from "./navbar/DropDown";
 import ProfileHeader from "./utils/ProfileHeader";
 import Button from "./utils/Button";
 import { UserContext } from './utils/contexts/UserContext'
+import defaultImg from './assets/default-profile-icon-24.jpg'
 
 
 const Layout = () => {
@@ -62,17 +63,19 @@ const Layout = () => {
   const authObserver = async (user) => {
     if (user) {
       const userInfo = await getAccount(user.uid);
+      const userCurrent = {
+        name: `${capitalizeFirst(userInfo.firstName)} ${capitalizeFirst(userInfo.lastName)}`,
+        id: user.uid,
+      }
+      
       setIsLogin(true);
       setUser(userInfo);
       getPic(user.uid).then((picUrl) => {
-        setCurrentUser(
-          {
-            name: `${capitalizeFirst(userInfo.firstName)} ${capitalizeFirst(userInfo.lastName)}`,
-            img: picUrl,
-          }
-        )
+        userCurrent.img = picUrl;
+      }).catch(() => {
+        userCurrent.img = defaultImg;
       })
-      
+      setCurrentUser(userCurrent);
     } else {
       setIsLogin(false);
       signOutOfApp()

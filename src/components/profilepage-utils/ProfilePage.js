@@ -1,37 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
-import HomeContent from "../homepage-utils/HomeContent";
+import ProfileContent from "./ProfileContent";
 import MainHeader from "./MainHeader";
-import {profileProp, postProp }from "./ExampleProp";
+import { db } from "../services/Layout";
+import { doc } from "firebase/firestore";
+import fetchProfile from "./services/ProfilePage";
 
 const ProfilePage = () => {
+  const [profile, setProfile] = useState(null)
   const param = useParams();
 
   const checkProfile = () => {
-    const profile = profileProp.find((prop) => prop.name === param.profileId)
-    return profile;
+    const ref = `/users/${param.profileId}`;
+    const profileRef = doc(db, ref);
+    const data = fetchProfile(profileRef);
+    data.then(profileInfo => setProfile(profileInfo));
   }
 
-  const checkProfilePosts = () => {
-    const filtered = postProp.filter((prop) => prop.by.name === param.profileId)
-    return filtered;
-  }
+  useEffect(checkProfile, [])
 
-  const [profile, setProfile] = useState(checkProfile())
-  const [posts, setPosts] = useState(checkProfilePosts());
-
-  if (!posts) {
+  if (!profile) {
     return (
       <div>
         Sorry, this profile doesn't exist!
       </div>
     )
   }
+
   return (
     <div>
       <MainHeader user={profile} />
       <div>
-        <HomeContent discussions={posts} />
+        <ProfileContent discussions={[]} profileId={param.profileId}/>
       </div>
     </div>
   )

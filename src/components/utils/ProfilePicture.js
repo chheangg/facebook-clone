@@ -8,7 +8,7 @@ const ProfilePicture = ({user}) => {
     borderRadius: '50%',
   }
   return (
-    <Link className='icon profile-img' to={`/profile/${user.name}`}>
+    <Link className='icon profile-img' to={`/profile/${user.id }`}>
       <img style={imgStyle} className='icon'  src={user.img || defaultImg} alt='profile pic'></img>
     </Link>
   )

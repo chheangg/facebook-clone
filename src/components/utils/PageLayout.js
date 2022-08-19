@@ -6,7 +6,7 @@ import { collection } from "firebase/firestore";
 
 
 const pageLayout = (Header, Discussions, type) => {
-  return ({discussions}) => {
+  return ({discussions, profileId}) => {
     const [post, setPosts] = useState(discussions ? discussions : []);
     const user = useContext(UserContext);
     const postsRef = collection(db, 'posts')
@@ -27,7 +27,7 @@ const pageLayout = (Header, Discussions, type) => {
     }
 
     const pageEffect = () => {
-      const posts = fetchPosts(type, postsRef);
+      const posts = fetchPosts(type, postsRef, profileId);
       posts.then((data) => setPosts([...post, ...data]));
     }
 

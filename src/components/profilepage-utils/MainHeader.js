@@ -4,7 +4,7 @@ const MainHeader = ({user}) => {
       <img alt='profile cover' src={user.cover}></img>
       <div>
         <img alt='profile pic' src={user.img}></img>
-        <div>{user.name}</div>
+        <div>{`${user.firstName} ${user.lastName}`}</div>
       </div>
     </div>
   )

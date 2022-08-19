@@ -17,9 +17,7 @@ function templatePost(type, Header, Discussions, childType, Expander) {
     const [postChild, setPostChild] = useState(getPostChild());
 
     const changeViewHandler = () => {
-      if (postChild[0]) {
-        setShowPostChild(!showPostChild);
-      }
+      setShowPostChild(!showPostChild);
     }
 
     const updateState = (newState) => {
