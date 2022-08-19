@@ -53,4 +53,4 @@ const getPic = async (uid) => {
   return imageUrl;
 }
 
-export {createAccount, signIn, signOutOfApp, onAuthStateChanged, getAccount, getPic, auth}
+export {createAccount, signIn, signOutOfApp, onAuthStateChanged, getAccount, getPic, auth, db}

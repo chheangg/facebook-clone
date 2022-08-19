@@ -1,13 +1,18 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import Image from "../utils/Image"
 import PostUtils from './PostUtils'
 import { UserContext } from './contexts/UserContext';
+import { addPost, fetchPosts } from '../homepage-utils/services/HomePage';
+import { db } from '../services/Layout'
+import { collection } from 'firebase/firestore';
 
 function templatePost(type, Header, Discussions, childType, Expander) {
-  return ({discussion, updateDiscussion, index, setShowPostChild, showPostChild}) => {
+  return ({discussion, updateDiscussion, index, setShowPostChild, showPostChild, parentId, id}) => {
     const getBtnText = () => childType === 'comments' ? 'comment' : 'reply';
     const getPostChild = () => discussion[childType] ? discussion[childType] : [];
     const user = useContext(UserContext);
+    const ref =  `${parentId}/${id}/${childType}`
+    const childRef = collection(db, ref)
 
     const [postChild, setPostChild] = useState(getPostChild());
 
@@ -21,12 +26,15 @@ function templatePost(type, Header, Discussions, childType, Expander) {
       setPostChild(newState);
     }
 
-    const handleSubmit = (text) => {
+    const handleSubmit = async (text) => {
       const newObj = {
         content: text,
         by: user,
         date: new Date().getTime(),
       };
+
+      const id = await addPost(newObj, childRef);
+      newObj.id = id;
 
       const newChildren = [...postChild, newObj]
       setPostChild(newChildren);
@@ -40,6 +48,13 @@ function templatePost(type, Header, Discussions, childType, Expander) {
       return time;
     }
 
+    const childEffect = () => {
+      const posts = fetchPosts(type, childRef);
+      posts.then((data) => setPostChild([...postChild, ...data]));
+    }
+
+    useEffect(childEffect, [])
+
     return (
       <div className={`${type}-container`} data-testid={type}>
         <Header user={discussion.by} date={discussion.date ? getDate() : null} />
@@ -47,7 +62,8 @@ function templatePost(type, Header, Discussions, childType, Expander) {
         {discussion.img ? <Image src={discussion.img} alt={`${type} pic`} /> : null}
         <PostUtils isOn={postChild[0] ? true : false} handleSubmit={handleSubmit} handleChildViewer={changeViewHandler} buttonText={getBtnText()} isBtnless={true} />
         {Expander ? postChild.length > 0 ? <button onClick={changeViewHandler}>{`view ${postChild.length} ${childType}`}</button> : null : null}
-        {showPostChild ? <Discussions discussions={postChild} updateDiscussions={updateState} /> : null}
+        {showPostChild ? <Discussions discussions={postChild} updateDiscussions={updateState} parentId={ref} /> :
+         postChild[0] !== undefined ? <Discussions discussions={[postChild[0]]} updateDiscussions={updateState} parentId={ref} /> : null}
       </div>
     )
   }
