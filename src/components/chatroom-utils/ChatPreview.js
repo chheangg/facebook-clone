@@ -2,7 +2,7 @@ import ProfileHeader from "../utils/ProfileHeader"
 
 const ChatPreview = ({chatData, user, utils}) => {
 	const getUser = () => {
-		const partner = chatData.users.find((person) => person.name !== user.name);
+		const partner = chatData.users.find((person) => person.id !== user.id);
 		return partner;
 	}
 	const getPreviewMsg = () => {

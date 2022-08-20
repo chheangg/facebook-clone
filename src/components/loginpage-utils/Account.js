@@ -1,5 +1,6 @@
 import { useState } from "react";
 import './styles/register.scss';
+import defaultImg from '../assets/default-profile-icon-24.jpg';
 
 const Months = ['january', 'february', 'march',
 'april', 'may', 'june', 'july', 'august', 'september',

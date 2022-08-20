@@ -1,5 +1,6 @@
 import Preview from "./Preview";
 import ChatPreview from "./ChatPreview";
+import { v4 as uuidv4 } from 'uuid';
 
 const ChatRoom = ({user, chatData, utils}) => {
 	const chatRoomStyle = {
@@ -13,7 +14,7 @@ const ChatRoom = ({user, chatData, utils}) => {
 			<h2>Chats</h2>
 			<input type='text'></input>
 			<Preview>
-				{chatData.map((data) => <ChatPreview utils={utils} key={data.id} chatData={data} user={user} />)}
+				{chatData.map((data) => <ChatPreview utils={utils} key={uuidv4()} chatData={data} user={user} />)}
 			</Preview>
 		</div>
 	)

@@ -6,7 +6,7 @@ import { db } from "../services/Layout";
 import { doc } from "firebase/firestore";
 import fetchProfile from "./services/ProfilePage";
 
-const ProfilePage = () => {
+const ProfilePage = ({addToCurrentMsgs}) => {
   const [profile, setProfile] = useState(null)
   const param = useParams();
 
@@ -29,7 +29,7 @@ const ProfilePage = () => {
 
   return (
     <div>
-      <MainHeader user={profile} />
+      <MainHeader user={profile} addToCurrentMsgs={addToCurrentMsgs}/>
       <div>
         <ProfileContent discussions={[]} profileId={param.profileId}/>
       </div>

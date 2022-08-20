@@ -13,16 +13,16 @@ import ProfileHeader from "./utils/ProfileHeader";
 import Button from "./utils/Button";
 import { UserContext } from './utils/contexts/UserContext'
 import defaultImg from './assets/default-profile-icon-24.jpg'
+import { v4 as uuidv4 } from 'uuid';
 
 
-const Layout = () => {
+const Layout = ({currentMsgs, setCurrentMsgs, addToCurrentMsgs}) => {
   const [isLogin, setIsLogin] = useState(null);
   const [isRegister, setIsRegister] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const [showSetting, setShowSetting] = useState(false);
   const [user, setUser] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
-  const [currentMsgs, setCurrentMsgs] = useState([]);
   const [chatData, setChatData] = useState([]);
 
   const handleRegisterPop = () => {
@@ -33,17 +33,16 @@ const Layout = () => {
     setShowMessage(!showMessage);
   }
 
-  const addToCurrentMsgs = (chat) => {
-    setCurrentMsgs(currentMsgs.concat(chat));
-  }
-
   const removeFromCurrentMsgs = (id) => {
     const newCurrentMsgs = currentMsgs.filter((msg) => msg.uuid !== id);
     setCurrentMsgs(newCurrentMsgs);
   }
 
   const getUser = (chatData) => {
-		const partner = chatData.users.find((person) => person.name !== user.name);
+		const partner = chatData.users.find((person) => person.id !== currentUser.id);
+    if (!partner) {
+      return currentUser;
+    }
 		return partner;
 	}
 
@@ -73,7 +72,7 @@ const Layout = () => {
       getPic(user.uid).then((picUrl) => {
         userCurrent.img = picUrl;
       }).catch(() => {
-        userCurrent.img = defaultImg;
+        userCurrent.img = null;
       })
       setCurrentUser(userCurrent);
     } else {
@@ -114,7 +113,7 @@ const Layout = () => {
       {showMessage ? <ChatRoom chatData={chatData} user={currentUser} utils={{addToCurrentMsgs}} /> : null}
       {currentMsgs.length > 0 ?
       <ChatOverlay>
-        {currentMsgs.map(chat => <Chatbox key={chat.id} currentUser={currentUser} user={getUser(chat)} discussions={chat.discussions} />)}
+        {currentMsgs.map(chat => <Chatbox key={uuidv4()} currentUser={currentUser} user={getUser(chat)} discussions={chat.discussions} />)}
       </ChatOverlay>
       : null}
       {showSetting ? 

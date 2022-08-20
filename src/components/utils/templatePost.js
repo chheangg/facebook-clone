@@ -32,13 +32,14 @@ function templatePost(type, Header, Discussions, childType, Expander) {
       };
 
       const id = await addPost(newObj, childRef);
-      newObj.id = id;
+        newObj.id = id;
 
       const newChildren = [...postChild, newObj]
+      
       setPostChild(newChildren);
       updateDiscussion(childType, newChildren, index);
       setShowPostChild(true);
-    }
+      }
 
     const getDate = () => {
       const date = new Date(parseInt(discussion.date));

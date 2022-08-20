@@ -3,7 +3,7 @@ import Message from "./Message"
 import { v4 as uuidv4 } from 'uuid';
 
 const ChatBlock = ({currentUser, user, contents}) => {
-  const checkSide = () => currentUser.name === user.name;
+  const checkSide = () => currentUser.id === user.id;
   return (
     <div>
       <ProfilePicture user={user} />

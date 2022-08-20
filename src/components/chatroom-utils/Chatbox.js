@@ -1,8 +1,10 @@
 import ProfileHeader from "../utils/ProfileHeader";
 import { v4 as uuidv4 } from 'uuid';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChatUtils from "./ChatUtils";
 import ChatBlock from "./ChatBlock";
+import { createChat } from "./services/Chat";
+import { fetchChat, addChat } from "./services/Chat";
 
 const Chatbox = ({currentUser, user, discussions}) => {
   // Function that divides individual pieces of chat into block that has ownership.
@@ -27,7 +29,7 @@ const Chatbox = ({currentUser, user, discussions}) => {
       }
       else {
         // If the lastest chatblock ownership matches the current chat ownership, add them together, otherwise don't.
-        if (lists[lists.length - 1].by.name === chat.by.name) {
+        if (lists[lists.length - 1].by.id === chat.by.id) {
 
             lists[lists.length - 1].contents.push({...(delete newChat.by && newChat)});
             return lists; 
@@ -40,26 +42,50 @@ const Chatbox = ({currentUser, user, discussions}) => {
   }
 
   const [chatBlock, setChatBlock] = useState(getChatBlock(discussions));
+  const [id, setId] = useState(null);
+
   const handleSubmit = (text) => {
     const message = {
+      content: text,
       time: new Date().getTime(),
     };
 
-    const newChatBlock = [...chatBlock];
+    const requestMessage = {...message, by: currentUser};
 
-    if (chatBlock[chatBlock.length - 1].by.name === currentUser.name) {
-      console.log('hi')
-      newChatBlock[newChatBlock.length - 1].contents.push(message);
-    } else {
+    const newChatBlock = [...chatBlock];
+    if (chatBlock.length === 0 || chatBlock[chatBlock.length - 1].by.id !== currentUser.id) {
       const newBlock = {
         by: currentUser,
         contents: [message],
       }
-      newChatBlock.push(newBlock);
+      // Initiate chat
+      if (chatBlock.length === 0) {
+        const users = [currentUser, user]
+        createChat(requestMessage, users);
+      } else {
+        newChatBlock.push(newBlock);
+        addChat(requestMessage, id);
+      }
+    } else if (chatBlock[chatBlock.length - 1].by.id === currentUser.id) {
+      newChatBlock[newChatBlock.length - 1].contents.push(message);
+      addChat(requestMessage, id);
     }
-
-    setChatBlock(newChatBlock)
+    setChatBlock(newChatBlock)  
   }
+
+  const loadChat = () => {
+    const chatData = fetchChat([currentUser, user]);
+    chatData.then((data) => {
+      if (!data) {
+        setChatBlock([]);
+      } else {
+        setChatBlock(getChatBlock(data.discussions));
+        setId(data.id);
+      }
+    })
+  }
+
+  useEffect(loadChat, [])
 
   return (
     <div>
