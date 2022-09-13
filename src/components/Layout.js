@@ -14,6 +14,8 @@ import Button from "./utils/Button";
 import { UserContext } from './utils/contexts/UserContext'
 import defaultImg from './assets/default-profile-icon-24.jpg'
 import { v4 as uuidv4 } from 'uuid';
+import Welcome from "./loginpage-utils/Welcome";
+import './styles/Authentication.scss';
 
 
 const Layout = ({currentMsgs, setCurrentMsgs, addToCurrentMsgs}) => {
@@ -84,7 +86,8 @@ const Layout = ({currentMsgs, setCurrentMsgs, addToCurrentMsgs}) => {
   const stateChange = () => {
     onAuthStateChanged(auth, authObserver)
   }
-  useEffect(stateChange, [])
+
+  useEffect(stateChange, []);
 
   if (isLogin === null) {
     return (
@@ -95,9 +98,8 @@ const Layout = ({currentMsgs, setCurrentMsgs, addToCurrentMsgs}) => {
   }
   if(isLogin === false) {
     return (
-      <div>
-        <div>
-        </div>
+      <div className='authentication-container'>
+        <Welcome />
         <Authenticate handleRegisterPop={handleRegisterPop} signIn={signIn} />
         {isRegister ? <Account createAccount={createAccount} handleRegisterPop={handleRegisterPop} /> : null}
       </div>

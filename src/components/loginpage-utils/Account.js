@@ -1,12 +1,14 @@
 import { useState } from "react";
 import './styles/register.scss';
 import defaultImg from '../assets/default-profile-icon-24.jpg';
+import closeBtn from '../assets/close.svg';
+import '../styles/Registration.scss';
 
 const Months = ['january', 'february', 'march',
 'april', 'may', 'june', 'july', 'august', 'september',
 'october', 'november', 'december'];
 
-const Account = ({createAccount}) => {
+const Account = ({createAccount, handleRegisterPop}) => {
   const current = new Date()
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -44,18 +46,29 @@ const Account = ({createAccount}) => {
   return (
     <div className="register-wrapper">
       <div className="register-container">
-        <form onSubmit={(e) => e.preventDefault()}>
+        <div className='closed-btn'>
+          <button onClick={handleRegisterPop}>
+            <img src={closeBtn} alt='close registration' />
+          </button>
+        </div>
+        <div className='reg-header'>
+          <h1>Sign Up</h1>
+          <p>It's quick and easy</p>
+        </div>
+        <form className='reg-form-container' onSubmit={(e) => e.preventDefault()}>
           <fieldset>
-            <input onChange={(e) => handleChange(e, setFirstName)} type='text' placeholder="First Name"></input>
-            <input onChange={(e) => handleChange(e, setLastName)} type='text' placeholder="First Name"></input>
+            <div className='fullname-container'>
+              <input onChange={(e) => handleChange(e, setFirstName)} type='text' placeholder="First Name"></input>
+              <input onChange={(e) => handleChange(e, setLastName)} type='text' placeholder="Last Name"></input>
+            </div>
             <input onChange={(e) => handleChange(e, setEmail)} className='input-utils' type='email' placeholder="Email"></input>
-            <input onChange={(e) => handleChange(e, setPassword)} className='input-utils' type='password' placeholder="Password"></input>
+            <input onChange={(e) => handleChange(e, setPassword)} className='input-utils' type='password' placeholder="New password"></input>
           </fieldset>
           <fieldset>
-            <div>Birthday</div>
-            <div>
+            <label>Birthday</label>
+            <div className='dob-container'>
               <select onChange={(e) => handleChange(e, setMonth)} defaultValue={current.getMonth() + 1} id="Month">
-                {Months.map((month) => <option key={Months.indexOf(month)} value={Months.indexOf(month) + 1}>{month.slice(0, 3)}</option>)}
+                {Months.map((month) => <option key={Months.indexOf(month)} value={Months.indexOf(month) + 1}>{`${month.charAt(0).toUpperCase()}${month.slice(1, 3)}`}</option>)}
               </select>
               <select onChange={(e) => handleChange(e, setDay)} defaultValue={current.getDay()} id="day">
                 {getDays().map((num) => <option key={num} value={num}>{num}</option>)}
@@ -66,16 +79,19 @@ const Account = ({createAccount}) => {
             </div>
           </fieldset>
           <fieldset>
-            <div>
-              <label forhtml='male-option'>Male</label>
-              <input onChange={(e) => handleChange(e, setGender)} name="gender" id='male-option' type='radio' value='male'></input>
-            </div>
-            <div>
-              <label forhtml='female-option'>Female</label>
-              <input onChange={(e) => handleChange(e, setGender)} name="gender" id='female-option' type='radio' value='female'></input>
+            <label>Gender</label>
+            <div className='gender-choice-container'>
+              <div className='gender-choice'>
+                <label forhtml='female-option'>Female</label>
+                <input onChange={(e) => handleChange(e, setGender)} name="gender" id='female-option' type='radio' value='female'></input>
+              </div>
+              <div className='gender-choice'>
+                <label forhtml='male-option'>Male</label>
+                <input onChange={(e) => handleChange(e, setGender)} name="gender" id='male-option' type='radio' value='male'></input>
+              </div>
             </div>
           </fieldset>
-          <button onClick={() => {
+          <button id='signup-btn' onClick={() => {
             const info = {
               firstName,
               lastName,
@@ -83,8 +99,10 @@ const Account = ({createAccount}) => {
               dob: `${day}/${month}/${year}`,
               gender,
             }
-            createAccount(email, password, info)
-          }}>Sign Up</button>
+            createAccount(email, password, info);
+          }}>
+            Sign Up
+          </button>
         </form>
       </div>
     </div>

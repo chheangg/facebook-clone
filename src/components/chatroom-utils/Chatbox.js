@@ -51,7 +51,6 @@ const Chatbox = ({currentUser, user, discussions}) => {
     };
 
     const requestMessage = {...message, by: currentUser};
-
     const newChatBlock = [...chatBlock];
     if (chatBlock.length === 0 || chatBlock[chatBlock.length - 1].by.id !== currentUser.id) {
       const newBlock = {

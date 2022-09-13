@@ -1,3 +1,34 @@
+@font-face {
+  font-family: Helvetica;
+  src: url(../assets/Helvetica.ttf);
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Helvetica;
+  src: url(../assets/helvetica-light-587ebe5a59211.ttf);
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Helvetica;
+  src: url(../assets/Helvetica-Bold.ttf);
+  font-weight: bold;
+  font-style: normal;
+}
+
 body {
-  background-color:#f7f7f7;
+  background-color:#f0f2f5;
+  font-family: 'Helvetica', sans-serif;
+}
+
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+#root {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
 }

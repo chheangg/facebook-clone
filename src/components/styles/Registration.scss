@@ -1,0 +1,137 @@
+.register-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.75)
+}
+
+.register-container {
+  position: absolute;
+  margin: 25vh auto;
+  left: 0;
+  right: 0;
+  width: 400px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 8px 8px 6px -11px rgba(0,0,0,0.79) , -8px 8px 6px -11px rgba(0,0,0,0.79);
+
+  .closed-btn {
+    position: absolute;
+    right: 0;
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    img {
+      height: 1.5rem;
+      width: auto;
+    }
+  }
+
+  .reg-header {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid silver;
+
+    > * {
+      margin: 0;
+    }
+
+    h1 {
+      margin: 0.5rem 0;
+    }
+
+    p {
+      color: #616771;
+    }
+  }
+
+  .reg-form-container {
+    padding-bottom: 1rem;
+    display: grid;
+  }
+
+  .fullname-container {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  input, select, .gender-choice {
+    border: 1px solid silver;
+    border-radius: 5px;
+  }
+
+  input {
+    padding:  0.75rem;
+    font-size: 0.9rem;
+    background-color: #f0f2f5;
+    margin-top: 0.75rem;
+    width: 100%;
+  }
+
+  select {
+    padding: 0.5rem 0.25rem;
+    font-size: 0.9rem;
+    background-color: transparent;
+  }
+
+  fieldset {
+    padding-top: 0;
+    border: none;
+
+    > label {
+      font-size: 0.75rem;
+      color: #616771;
+    }
+  }
+
+  .dob-container {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: space-between;
+
+    > * {
+      flex: 1;
+    }
+  }
+
+  .gender-choice-container {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .gender-choice {
+    flex: 1;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding:  0.75rem;
+    font-size: 0.9rem;
+
+    > * {
+      margin: 0;
+    }
+
+    > input {
+      width: 1rem;
+    }
+  }
+
+  #signup-btn {
+    border: none;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    padding: 0.5rem 0.25rem;
+    font-size: 1.2rem;
+    width: 50%;
+    font-weight: bold;
+    background-color: #42b72a;
+    margin: 0 auto;
+    cursor: pointer;
+  }
+}
