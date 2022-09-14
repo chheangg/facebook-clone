@@ -32,7 +32,7 @@ const Nav = ({changeMessageView, handleProfileSetting, user}) => {
           <CircularButton size='mid' img={dotGrid} />  
           <CircularButton size='mid' img={messLogo} util={changeMessageView} /> 
           <CircularButton size='mid' img={bellIcon} />  
-          <CircularButton size='mid' img={user ? user.img ? user.img : defaultProfileIcon : defaultProfileIcon} util={handleProfileSetting} /> 
+          <CircularButton size='mid' id='profile-pic' img={user ? user.img ? user.img : defaultProfileIcon : defaultProfileIcon} util={handleProfileSetting} /> 
         </div>
     </nav>
   )

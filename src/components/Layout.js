@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import Nav from "./navbar/Nav";
-import './styles/Layout.scss';
 import { useEffect, useState } from "react";
 import ChatRoom from "./chatroom-utils/ChatRoom";
 import ChatOverlay from "./chatroom-utils/ChatOverlay";
@@ -15,8 +14,9 @@ import { UserContext } from './utils/contexts/UserContext'
 import defaultImg from './assets/default-profile-icon-24.jpg'
 import { v4 as uuidv4 } from 'uuid';
 import Welcome from "./loginpage-utils/Welcome";
+import './styles/Layout.scss';
+import './styles/Page.scss';
 import './styles/Authentication.scss';
-
 
 const Layout = ({currentMsgs, setCurrentMsgs, addToCurrentMsgs}) => {
   const [isLogin, setIsLogin] = useState(null);
@@ -107,7 +107,7 @@ const Layout = ({currentMsgs, setCurrentMsgs, addToCurrentMsgs}) => {
   }
 
   return (
-    <div>
+    <div className='page-container'>
       <Nav changeMessageView={changeMessageView} handleProfileSetting={handleProfileSetting} user={currentUser}/>
       <UserContext.Provider value={currentUser}>
         <Outlet />
