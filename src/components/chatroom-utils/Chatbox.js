@@ -92,7 +92,7 @@ const Chatbox = ({currentUser, user, discussions}) => {
       <div>
         {chatBlock.map((block) => <ChatBlock key={uuidv4()} currentUser={currentUser} user={block.by} contents={block.contents} /> )}
       </div>
-      <ChatUtils handleSubmit={handleSubmit} isBtnless={false} buttonText='Send'/>
+      <ChatUtils handleSubmit={handleSubmit}/>
     </div>
   )
 }

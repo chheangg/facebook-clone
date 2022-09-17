@@ -1,7 +1,5 @@
-import commentIcon from '../assets/comment-outline.svg';
-import { useState } from 'react';
-
-const PostUtils = ({handleSubmit, handleChildViewer, isOn}) => {
+import { useState } from "react";
+const CommentUtils = ({handleSubmit, handleChildViewer, isOn}) => {
   const [text, setText] = useState('');
   const [showInput, setShowInput] = useState(isOn ? true : false);
 
@@ -25,14 +23,11 @@ const PostUtils = ({handleSubmit, handleChildViewer, isOn}) => {
   return (
     <>
       <div className='utils-container'> 
-        <button onClick={handleInputState}>
-          <img src={commentIcon} alt='comment button' />
-          Comments
-        </button>
+        <button onClick={handleInputState}>Replies</button>
       </div>
       {showInput ? displayInput() : null}
     </>
-  )
+  );
 }
 
-export default PostUtils;
+export default CommentUtils;

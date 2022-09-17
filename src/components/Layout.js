@@ -17,6 +17,7 @@ import Welcome from "./loginpage-utils/Welcome";
 import './styles/Layout.scss';
 import './styles/Page.scss';
 import './styles/Authentication.scss';
+import './styles/Post.scss';
 
 const Layout = ({currentMsgs, setCurrentMsgs, addToCurrentMsgs}) => {
   const [isLogin, setIsLogin] = useState(null);
