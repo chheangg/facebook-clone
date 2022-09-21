@@ -1,4 +1,4 @@
-import ProfileHeader from "../utils/ProfileHeader"
+import { Link } from "react-router-dom"
 import Replies from "../replies-utils/Replies"
 import CommentUtils from "./CommentUtils"
 import { useEffect, useContext, useState } from "react"
@@ -7,6 +7,7 @@ import { UserContext } from '../utils/contexts/UserContext';
 import { addPost, fetchPosts } from '../homepage-utils/services/HomePage';
 import { db } from '../services/Layout'
 import { collection } from 'firebase/firestore';
+import ProfilePicture from "../utils/ProfilePicture"
 
 const Comment = ({discussion, updateDiscussion, index, parentId, id}) => {
   const getPostChild = () => discussion['replies'] ? discussion['replies'] : [];
@@ -52,15 +53,23 @@ const Comment = ({discussion, updateDiscussion, index, parentId, id}) => {
     posts.then((data) => setReplies([...replies, ...data]));
   }
 
-  useEffect(childEffect, [])
+  useEffect(childEffect, []);
 
   return (
     <div className={`comment-container`} data-testid='comment'>
-      <ProfileHeader user={discussion.by} date={discussion.date ? getDate() : null} />
-      {discussion.content ? <div className='content-container'>{discussion.content} </div> : null}
-      {discussion.img ? <Image src={discussion.img} alt='replies' /> : null}
-      <CommentUtils isOn={replies[0] ? true : false} handleSubmit={handleSubmit} handleChildViewer={changeViewHandler} />
-      {Replies.length > 0 ? <button onClick={changeViewHandler}>{`view ${replies.length} replies`}</button> : null}
+      <div className='main-comment-container'>
+        <ProfilePicture user={discussion.by} />
+        <div className='main-content-container'>
+          <Link to={`/profile/${user.id}`} className='username' data-testid='username'>{user.name}</Link>
+          {discussion.content ? <div className='content-container'>{discussion.content} </div> : null}
+          {discussion.img ? <Image src={discussion.img} alt='replies' /> : null}
+        </div>
+      </div>
+      <div className='sub-comment-container'>
+        <CommentUtils isOn={replies[0] ? true : false} handleSubmit={handleSubmit} handleChildViewer={changeViewHandler} />
+        <div className='date-container'>{getDate()}</div>
+      </div>
+      {Replies.length > 0 ? <button className='expand-btn' onClick={changeViewHandler}>{`view ${replies.length} replies`}</button> : null}
       {showReplies ? <Replies discussions={replies} updateDiscussions={updateState} parentId={ref} /> :
        replies[0] !== undefined ? <Replies discussions={[replies[0]]} updateDiscussions={updateState} parentId={ref} /> : null}
     </div>

@@ -18,6 +18,8 @@ import './styles/Layout.scss';
 import './styles/Page.scss';
 import './styles/Authentication.scss';
 import './styles/Post.scss';
+import './styles/Comment.scss';
+import './styles/Reply.scss';
 
 const Layout = ({currentMsgs, setCurrentMsgs, addToCurrentMsgs}) => {
   const [isLogin, setIsLogin] = useState(null);

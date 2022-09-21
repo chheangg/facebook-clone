@@ -1,5 +1,4 @@
 import Post from "./Post";
-import { useState } from "react";
 
 const Posts = ({discussions, updateDiscussions}) => {
   const updateDiscussion = (type, newChild, index) => {

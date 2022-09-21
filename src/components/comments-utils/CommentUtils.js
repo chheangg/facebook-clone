@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 const CommentUtils = ({handleSubmit, handleChildViewer, isOn}) => {
   const [text, setText] = useState('');
   const [showInput, setShowInput] = useState(isOn ? true : false);
@@ -23,7 +24,7 @@ const CommentUtils = ({handleSubmit, handleChildViewer, isOn}) => {
   return (
     <>
       <div className='utils-container'> 
-        <button onClick={handleInputState}>Replies</button>
+        <button onClick={handleInputState}>Reply</button>
       </div>
       {showInput ? displayInput() : null}
     </>

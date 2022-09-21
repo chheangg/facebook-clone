@@ -2,14 +2,9 @@ import { Link } from "react-router-dom";
 import defaultImg from '../assets/default-loading-image.png';
 
 const ProfilePicture = ({user}) => {
-  const imgStyle = {
-    height: '2.5rem',
-    width: '2.5rem',
-    borderRadius: '50%',
-  }
   return (
     <Link className='icon profile-img' to={`/profile/${user.id }`}>
-      <img style={imgStyle} className='icon'  src={user.img || defaultImg} alt='profile pic'></img>
+      <img className='icon'  src={user.img || defaultImg} alt='profile pic'></img>
     </Link>
   )
 }

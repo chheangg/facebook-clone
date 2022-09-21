@@ -42,4 +42,34 @@ const fetchChat = async (users) => {
   return chatData;
 }
 
-export { createChat, fetchChat, addChat };
+const fetchChats = async (user) => {
+  const chatData = [];
+  const chatQuery = query(chatsLocation, where('users', 'array-contains', user));
+  const queryContent = await getDocs(chatQuery);
+  queryContent.forEach((doc) => {
+    const initialdata = {
+      users: doc.data().users,
+      id: doc.id,
+    }
+    chatData.push(initialdata)
+  })
+
+  if(!chatData) {
+    return null;
+  }
+
+  const transChatData = chatData.map(async (data) => {
+    let chat = [];
+    const chatContent = collection(db, 'chats', data.id, 'discussions');
+    const contentQuery = query(chatContent);
+    const contentSnapshot = await getDocs(contentQuery);
+    contentSnapshot.forEach((doc) => {
+      chat.push(doc.data())
+    })
+    console.log(data);
+    return {...data, discussions: chat};
+  });
+  return Promise.all(transChatData);
+}
+
+export { createChat, fetchChat, addChat, fetchChats };
