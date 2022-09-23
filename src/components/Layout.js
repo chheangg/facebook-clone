@@ -20,6 +20,8 @@ import './styles/Authentication.scss';
 import './styles/Post.scss';
 import './styles/Comment.scss';
 import './styles/Reply.scss';
+import './styles/Preview.scss';
+import './styles/Chat.scss';
 
 const Layout = ({currentMsgs, setCurrentMsgs, addToCurrentMsgs}) => {
   const [isLogin, setIsLogin] = useState(null);
@@ -44,7 +46,7 @@ const Layout = ({currentMsgs, setCurrentMsgs, addToCurrentMsgs}) => {
   }
 
   const getUser = (chatData) => {
-		const partner = chatData.users.find((person) => person.id !== currentUser.id);
+		const partner = chatData.users.find((person) => person !== currentUser.id);
     if (!partner) {
       return currentUser;
     }

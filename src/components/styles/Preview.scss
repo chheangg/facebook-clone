@@ -1,0 +1,38 @@
+.chatroom-container {
+  background-color: white;
+  width: 19vw;
+  border-radius: 5px;
+  padding: 1rem;  
+  box-shadow: 8px 8px 6px -11px rgba(0,0,0,0.79) , -8px -7px 6px -11px rgba(0,0,0,0.79);
+
+  * {
+    margin: 0;
+  }
+}
+
+.preview-chats-container {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.preview-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  gap: 0.5rem;
+
+  .profile-img {
+    grid-row: 1 / -1;
+  }
+
+  .preview-name-container {
+    font-size: 0.9rem;
+    align-self: end;
+  }
+
+  .preview-msg {
+    font-size: 0.8rem;
+    color: gray;
+  }
+}

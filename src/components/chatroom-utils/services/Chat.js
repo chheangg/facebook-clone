@@ -3,9 +3,19 @@ import { addDoc, collection, getDocs, query, where, orderBy, limit} from "fireba
 
 const chatsLocation = collection(db, 'chats');
 
+function arrToObj(arr) {
+  return arr.reduce((obj, next) => {
+    return {
+      ...obj,
+    [next]: true,
+    }
+  }, {});
+}
+
 const createChat = async (content, users) => {
+  const newUsers = arrToObj(users);
   const chatData = {
-    users
+    users: newUsers
   }
   const chatRef = await addDoc(chatsLocation, chatData);
   const contentLocation = collection(db, 'chats', chatRef.id, 'discussions');
@@ -20,7 +30,8 @@ const addChat = async (content, id) => {
 
 const fetchChat = async (users) => {
   let chatData;
-  const chatQuery = query(chatsLocation, where('users', 'array-contains-any', users));
+  const filterRule = arrToObj(users)
+  const chatQuery = query(chatsLocation, where('users', '==', filterRule));
   const querySnapshot = await getDocs(chatQuery);
   querySnapshot.forEach((doc) => {
     chatData = doc.data();
@@ -44,11 +55,12 @@ const fetchChat = async (users) => {
 
 const fetchChats = async (user) => {
   const chatData = [];
-  const chatQuery = query(chatsLocation, where('users', 'array-contains', user));
+  const chatQuery = query(chatsLocation, where(`users.${user}`, '==', true));
   const queryContent = await getDocs(chatQuery);
   queryContent.forEach((doc) => {
+    console.log(doc.data());
     const initialdata = {
-      users: doc.data().users,
+      users: Object.keys(doc.data().users),
       id: doc.id,
     }
     chatData.push(initialdata)
@@ -66,7 +78,6 @@ const fetchChats = async (user) => {
     contentSnapshot.forEach((doc) => {
       chat.push(doc.data())
     })
-    console.log(data);
     return {...data, discussions: chat};
   });
   return Promise.all(transChatData);

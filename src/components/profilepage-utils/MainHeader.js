@@ -4,14 +4,9 @@ import { UserContext } from "../utils/contexts/UserContext";
 const MainHeader = ({user, addToCurrentMsgs}) => {
   const currentUser = useContext(UserContext);
   const openMessageBox = () => {
-    const userSimplified = {
-      id: user.uid,
-      img: user.img ? user.img : null,
-      name: `${user.firstName} ${user.lastName}`,
-    }
     const chatData = {
-      id: user.id,
-      users: [ currentUser , userSimplified ],
+      id: user.uid,
+      users: [currentUser.id , user.uid],
       discussions: [],
     }
     addToCurrentMsgs(chatData);

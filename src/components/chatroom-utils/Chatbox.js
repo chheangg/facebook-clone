@@ -5,6 +5,7 @@ import ChatUtils from "./ChatUtils";
 import ChatBlock from "./ChatBlock";
 import { createChat } from "./services/Chat";
 import { fetchChat, addChat } from "./services/Chat";
+import { getAccount, getPic } from "../services/Layout";
 
 const Chatbox = ({currentUser, user, discussions}) => {
   // Function that divides individual pieces of chat into block that has ownership.
@@ -43,13 +44,13 @@ const Chatbox = ({currentUser, user, discussions}) => {
 
   const [chatBlock, setChatBlock] = useState(getChatBlock(discussions));
   const [id, setId] = useState(null);
+  const [userAccount, setUserAccount] = useState({id: user});
 
   const handleSubmit = (text) => {
     const message = {
       content: text,
       time: new Date().getTime(),
     };
-
     const requestMessage = {...message, by: currentUser};
     const newChatBlock = [...chatBlock];
     if (chatBlock.length === 0 || chatBlock[chatBlock.length - 1].by.id !== currentUser.id) {
@@ -59,8 +60,9 @@ const Chatbox = ({currentUser, user, discussions}) => {
       }
       // Initiate chat
       if (chatBlock.length === 0) {
-        const users = [currentUser, user]
-        createChat(requestMessage, users);
+        const users = [currentUser.id , userAccount.id]
+        createChat(requestMessage, users).then((id) => setId(id));
+        newChatBlock.push(newBlock);
       } else {
         newChatBlock.push(newBlock);
         addChat(requestMessage, id);
@@ -69,27 +71,43 @@ const Chatbox = ({currentUser, user, discussions}) => {
       newChatBlock[newChatBlock.length - 1].contents.push(message);
       addChat(requestMessage, id);
     }
-    setChatBlock(newChatBlock)  
+    setChatBlock(newChatBlock);
   }
 
   const loadChat = () => {
-    const chatData = fetchChat([currentUser, user]);
+    const chatData = fetchChat([currentUser.id, userAccount.id]);
     chatData.then((data) => {
       if (!data) {
         setChatBlock([]);
-      } else {
+      } else {  
         setChatBlock(getChatBlock(data.discussions));
         setId(data.id);
       }
     })
   }
 
+  const getUserAccount = () => {
+		const userData = getAccount(user);
+		const userPic = getPic(user);
+
+		userData.then((data) => {
+		  const name = `${data.firstName} ${data.lastName}`;
+      setUserAccount({...userAccount, name})
+		})
+
+		userPic.then((data) => {
+      setUserAccount({...userAccount, img: data})
+		}).catch(error => console.log('hi'));
+
+	}
+
+	useEffect(getUserAccount, [])
   useEffect(loadChat, [])
 
   return (
-    <div>
-      <ProfileHeader user={user} />
-      <div>
+    <div className='main-chat-container'>
+      <ProfileHeader user={userAccount} />
+      <div className='chat-container'>
         {chatBlock.map((block) => <ChatBlock key={uuidv4()} currentUser={currentUser} user={block.by} contents={block.contents} /> )}
       </div>
       <ChatUtils handleSubmit={handleSubmit}/>

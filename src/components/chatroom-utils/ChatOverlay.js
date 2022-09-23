@@ -2,10 +2,9 @@ const ChatOverlay = ({children}) => {
   const overlayStyle = {
     position: 'fixed',
     bottom: '0',
-    left: '0',
+    left: '750px',
     right: '0',
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
+    display: 'flex',
     zIndex: '1',
   }
   return (

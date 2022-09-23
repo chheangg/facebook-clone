@@ -1,7 +1,6 @@
 const Preview = ({children}) => {
     return (
-        <div>
-            Chat Previews
+        <div className='preview-chats-container'>
             {children}
         </div>
     )
